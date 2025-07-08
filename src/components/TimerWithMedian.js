@@ -11,6 +11,27 @@ export function TimerWithMedian() {
     const todayKey = `logs-${selectedDate}`;
 
     useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.code === "Space") {
+                if (
+                    ["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement.tagName)
+                ) {
+                    return;
+                }
+                e.preventDefault();
+                if (running) {
+                    stopTimer();
+                } else {
+                    startTimer();
+                }
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [running, elapsed, logs]);
+
+    useEffect(() => {
         const keys = Object.keys(localStorage).filter(key => key.startsWith("logs-"));
         setAllDates(keys.map(key => key.replace("logs-", "")));
     }, []);
@@ -69,15 +90,15 @@ export function TimerWithMedian() {
         const seconds = Math.floor(ms / 1000);
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        const millis = ms % 1000;
-        return `${mins}:${secs.toString().padStart(2, "0")}.${millis}`;
+        const mills = ms % 1000;
+        return `${mins}:${secs.toString().padStart(2, "0")}.${mills}`;
     };
 
     return (
-        <div className="p-6 max-w-md mx-auto bg-white rounded-2xl shadow-md space-y-4">
-            <h1 className="text-2xl font-bold">Timer for {selectedDate}</h1>
+        <div className="component p-6 max-w-md mx-auto bg-white rounded-2xl shadow-md space-y-4">
+            <h1 className="title text-2xl font-bold">Timer for {selectedDate}</h1>
 
-            <div className="mb-2">
+            {/* <div className="mb-2">
                 <label className="mr-2 font-semibold">Select Day:</label>
                 <select
                     value={selectedDate}
@@ -90,7 +111,7 @@ export function TimerWithMedian() {
                         </option>
                     ))}
                 </select>
-            </div>
+            </div> */}
 
             {selectedDate === new Date().toISOString().split("T")[0] && (
                 <>
@@ -121,9 +142,9 @@ export function TimerWithMedian() {
                 </>
             )}
 
-            <div>
+            <div className="border p-4 rounded-xl ">
                 <h2 className="text-xl font-semibold">Logs:</h2>
-                <ul className="list-disc list-inside">
+                <ul className="list-disc list-inside overflow-auto ">
                     {logs.map((log, index) => (
                         <li key={index}>{formatTime(log)}</li>
                     ))}

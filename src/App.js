@@ -5,9 +5,9 @@ import './App.css';
 
 function App() {
   return (
-    <div>
-      <TimerWithMedian />
+    <div className='container'>
       <Logs />
+      <TimerWithMedian />
       <MonthMedian />
     </div>
   );

@@ -26,8 +26,8 @@ export default function LogsViewer() {
         const seconds = Math.floor(ms / 1000);
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        const millis = ms % 1000;
-        return `${mins}:${secs.toString().padStart(2, "0")}.${millis}`;
+        const mills = ms % 1000;
+        return `${mins}:${secs.toString().padStart(2, "0")}.${mills}`;
     };
 
     const getMedian = (logs) => {
@@ -40,8 +40,8 @@ export default function LogsViewer() {
     };
 
     return (
-        <div className="p-6 max-w-2xl mx-auto bg-white rounded-2xl shadow-md space-y-6">
-            <h1 className="text-2xl font-bold">Logs Calendar Viewer</h1>
+        <div className="component p-6 max-w-2xl mx-auto bg-white rounded-2xl shadow-md space-y-6">
+            <h1 className="title text-2xl font-bold">Logs Calendar Viewer</h1>
             {allDates.length === 0 && <p>No logs saved yet.</p>}
             {allDates.length > 0 && (
                 <div className="mb-4">
@@ -57,7 +57,7 @@ export default function LogsViewer() {
             {selectedDate && logsByDate[selectedDate] ? (
                 <div className="border p-4 rounded-xl">
                     <h2 className="text-xl font-semibold">Logs for {selectedDate}</h2>
-                    <ul className="list-disc list-inside">
+                    <ul className="logs list-disc list-inside">
                         {logsByDate[selectedDate].map((log, index) => (
                             <li key={index}>{formatTime(log)}</li>
                         ))}
