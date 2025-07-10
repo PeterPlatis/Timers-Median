@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Timers-Median/static/css/main.d8b08aee.css",
+    "main.js": "/Timers-Median/static/js/main.82815c59.js",
+    "index.html": "/Timers-Median/index.html",
+    "main.d8b08aee.css.map": "/Timers-Median/static/css/main.d8b08aee.css.map",
+    "main.82815c59.js.map": "/Timers-Median/static/js/main.82815c59.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d8b08aee.css",
+    "static/js/main.82815c59.js"
+  ]
+}
