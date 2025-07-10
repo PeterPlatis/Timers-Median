@@ -1,4 +1,4 @@
-import {TimerWithMedian} from './components/TimerWithMedian';
+import {TimerWithMedian} from './components/TimerWithMedian1';
 import Logs from './components/Logs';
 import MonthMedian from './components/MonthMedian';
 import './App.css';
