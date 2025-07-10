@@ -1,11 +1,11 @@
-import {TimerWithMedian} from './components/TimerWithMedian1';
+import {TimerWithMedian} from './components/TimerWithMedian';
 import Logs from './components/Logs';
 import MonthMedian from './components/MonthMedian';
 import './App.css';
 
 function App() {
   return (
-    <div className='flx-container'>
+    <div className='h-[90%] flex justify-between items-center '>
       <Logs />
       <TimerWithMedian />
       <MonthMedian />
