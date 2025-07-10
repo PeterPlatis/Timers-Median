@@ -90,66 +90,52 @@ export function TimerWithMedian() {
         const seconds = Math.floor(ms / 1000);
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        const mills = ms % 1000;
+        const mills = Math.floor((ms % 1000) / 100);
         return `${mins}:${secs.toString().padStart(2, "0")}.${mills}`;
     };
 
     return (
-        <div className="component p-6 max-w-md mx-auto bg-white rounded-2xl shadow-md space-y-4">
+        <div className="grid  p-6 max-w-l mx-auto bg-white rounded-2xl shadow-md space-y-4">
             <h1 className="title text-2xl font-bold">Timer for {selectedDate}</h1>
-
-            {/* <div className="mb-2">
-                <label className="mr-2 font-semibold">Select Day:</label>
-                <select
-                    value={selectedDate}
-                    onChange={(e) => setSelectedDate(e.target.value)}
-                    className="border p-2 rounded-xl"
-                >
-                    {allDates.map((date) => (
-                        <option key={date} value={date}>
-                            {date}
-                        </option>
-                    ))}
-                </select>
-            </div> */}
-
             {selectedDate === new Date().toISOString().split("T")[0] && (
                 <>
-                    <div className="text-4xl font-mono">{formatTime(elapsed)}</div>
-                    <div className="flex space-x-2">
+                    <div className="col-span-3 justify-self-center self-center h-4rem text-8xl font-mono">{formatTime(elapsed)}</div>
+                    <div className="row-start-3 col-start-1 col-span-full grid grid-cols-3 space-x-2">
                         {!running ? (
                             <button
                                 onClick={startTimer}
-                                className="px-4 py-2 bg-green-500 text-white rounded-xl"
+                                className="col-start-1 col-span-2 px-4 py-2 bg-green-500 text-white rounded-xl"
                             >
                                 Start
                             </button>
                         ) : (
                             <button
                                 onClick={stopTimer}
-                                className="px-4 py-2 bg-red-500 text-white rounded-xl"
+                                className="col-start-1 col-span-2 px-4 py-2 bg-red-500 text-white rounded-xl"
                             >
                                 Stop & Log
                             </button>
                         )}
                         <button
                             onClick={resetLogs}
-                            className="px-4 py-2 bg-gray-500 text-white rounded-xl"
+                            className="col-start-3 px-4 py-2 bg-gray-500 text-white rounded-xl"
                         >
                             Reset Logs
                         </button>
                     </div>
                 </>
             )}
-
-            <div className="border p-4 rounded-xl ">
+            <div className="col-start-1 row-start-4 flex flex-col">
                 <h2 className="text-xl font-semibold">Logs:</h2>
-                <ul className="list-disc list-inside overflow-auto ">
-                    {logs.map((log, index) => (
-                        <li key={index}>{formatTime(log)}</li>
-                    ))}
-                </ul>
+                <div className=" border p-4 rounded-xl overflow-auto">
+                    <ol className="list-disc font-extralight list-inside">
+                        {logs.map((log, index) => (
+                            <li key={index}>{formatTime(log)}</li>
+                        ))}
+                    </ol>
+                </div>
             </div>
+
 
             <div>
                 <h2 className="text-xl font-semibold">Median of the Day:</h2>

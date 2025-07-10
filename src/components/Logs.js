@@ -17,7 +17,7 @@ export default function LogsViewer() {
         });
         setAllDates(dates);
         if (dates.length > 0) {
-            setSelectedDate(dates[0]);
+            setSelectedDate(dates[1]);//original= 0
         }
         setLogsByDate(data);
     }, []);
@@ -26,7 +26,7 @@ export default function LogsViewer() {
         const seconds = Math.floor(ms / 1000);
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        const mills = ms % 1000;
+        const mills = Math.floor((ms % 1000) / 100);
         return `${mins}:${secs.toString().padStart(2, "0")}.${mills}`;
     };
 
@@ -40,7 +40,7 @@ export default function LogsViewer() {
     };
 
     return (
-        <div className="component p-6 max-w-2xl mx-auto bg-white rounded-2xl shadow-md space-y-6">
+        <div className=" p-6 w-2xs mx-auto bg-white rounded-2xl shadow-md space-y-6">
             <h1 className="title text-2xl font-bold">Logs Calendar Viewer</h1>
             {allDates.length === 0 && <p>No logs saved yet.</p>}
             {allDates.length > 0 && (
@@ -55,15 +55,18 @@ export default function LogsViewer() {
                 </div>
             )}
             {selectedDate && logsByDate[selectedDate] ? (
-                <div className="border p-4 rounded-xl">
+                <div>
                     <h2 className="text-xl font-semibold">Logs for {selectedDate}</h2>
-                    <ul className="logs list-disc list-inside">
-                        {logsByDate[selectedDate].map((log, index) => (
-                            <li key={index}>{formatTime(log)}</li>
-                        ))}
-                    </ul>
+                    <div className="border p-4 rounded-xl h-[20rem] overflow-auto p-[200px]">
+                        <ul className="logs list-disc list-inside font-extralight">
+                            {logsByDate[selectedDate].map((log, index) => (
+                                <li key={index}>{formatTime(log)}</li>
+                            ))}
+                        </ul>
+                    </div>
                     <p className="mt-2 font-mono">Median: {formatTime(getMedian(logsByDate[selectedDate]))}</p>
                 </div>
+
             ) : (
                 selectedDate && <p>No logs for selected date.</p>
             )}

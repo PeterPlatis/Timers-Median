@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className='container'>
+    <div className='flx-container'>
       <Logs />
       <TimerWithMedian />
       <MonthMedian />

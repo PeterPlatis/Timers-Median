@@ -28,7 +28,7 @@ export default function MonthMedian() {
         const seconds = Math.floor(ms / 1000);
         const mins = Math.floor(seconds / 60);
         const secs = seconds % 60;
-        const mills = ms % 1000;
+        const mills = Math.floor((ms % 1000) / 100);
         return `${mins}:${secs.toString().padStart(2, "0")}.${mills}`;
     };
 
@@ -46,7 +46,7 @@ export default function MonthMedian() {
         .flatMap(date => logsByDate[date] || []);
 
     return (
-        <div className="component p-6 max-w-2xl mx-auto bg-white rounded-2xl shadow-md space-y-6">
+        <div className="component p-6 mx-auto w-2xs bg-white rounded-2xl shadow-md space-y-6">
             <h1 className="title text-2xl font-bold">Monthly Median Viewer</h1>
             {allDates.length === 0 && <p>No logs saved yet.</p>}
             {allDates.length > 0 && (
